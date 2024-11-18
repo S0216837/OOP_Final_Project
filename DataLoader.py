@@ -10,7 +10,7 @@ class DataLoader(ABC):
 
     @abstractmethod
     def loader(self, path_filename):
-        pass
+        raise NotImplementedError
 
     def print_data(self):
         print('Data, the first 5 lines: \n', self._data.head())
@@ -47,6 +47,11 @@ class DataLoader(ABC):
             self._X.insert(0, 'const', 1.0)
         print(f'X after adding constant: \n{self._X}')
 
+    def x_transpose(self):
+        if self._X is None:
+            raise ValueError("X is not set, please set X first")
+        return self._X.T 
+
 class CsvLoader(DataLoader):
     def loader(self, path_filename):
         data = pd.read_csv(path_filename)
@@ -65,18 +70,4 @@ class StatsmodelsLoader(DataLoader):
         print('Data has been loaded successfully')
         return self._data
 
-# Example usage:
-# file_loader = CsvLoader()
-# data = file_loader.loader('your_file.csv')
-# file_loader.print_data()
-# file_loader.set_X(['col1', 'col2'])
-# file_loader.set_Y('target_col')
-# file_loader.add_constant()
 
-# stats_loader = StatsmodelsLoader()
-# dataset = sm.datasets.get_rdataset('iris')
-# data = stats_loader.loader(dataset)
-# stats_loader.print_data()
-# stats_loader.set_X(['Sepal.Length', 'Sepal.Width'])
-# stats_loader.set_Y('Petal.Length')
-# stats_loader.add_constant()
