@@ -33,6 +33,7 @@ def test_statsmodels_loader_with_correct_columns():
     test_ok.print_data()
     x_data = test_ok.get_X()
     y_data = test_ok.get_Y()
+    test_ok.x_transpose()
     print("StatsmodelsLoader test with correct columns completed successfully.\n")
     print(f"X data: \n{x_data}\n")
     print(f"Y data: \n{y_data}\n")
